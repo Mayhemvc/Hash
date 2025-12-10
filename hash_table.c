@@ -38,27 +38,28 @@ void hash_table_insert(Hash_Table *hash_table, int value) {
   int removido = -1;
 
   for (int i = 0; i < ARRAY_SIZE; i++) {
-    int idx = (h + i*i) % ARRAY_SIZE;
+    int idx = (h + i * i) % ARRAY_SIZE;
     char state = hash_table->rows[idx].state;
-    if(state =='O') {
-        if (hash_table->rows[idx].value == value){
-            return;
-        } else if (state == 'R') {
-            hash_table->rows[idx].state = 'O';
-            hash_table->rows[idx].value = value;
-            return;
-        } else if (state == 'F') {
-            if (removido != -1) {
-                hash_table->rows[removido].state = 'O';
-                hash_table->rows[removido].value = value;
-            } else {
-              hash_table->rows[idx].state = 'O';
-              hash_table->rows[idx].value = value;
-            }
-        } else if (removido != -1) {
-          hash_table->rows[removido].state = 'O';
-          hash_table->rows[removido].value = value;
-        }
+
+    if (state == 'O') {
+      if (hash_table->rows[idx].value == value) {
+        return; 
+      }
+    } 
+    else if (state == 'R') {
+      if (removido == -1) {
+        removido = idx; 
+      }
+    } 
+    else if (state == 'F') {
+      if (removido != -1) {
+        hash_table->rows[removido].state = 'O';
+        hash_table->rows[removido].value = value;
+      } else {
+        hash_table->rows[idx].state = 'O';
+        hash_table->rows[idx].value = value;
+      }
+      return; 
     }
   }
 }
