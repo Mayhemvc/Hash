@@ -50,7 +50,7 @@ void hash_table_insert(Hash_Table *hash_table, int value) {
       if (removido == -1) {
         removido = idx; 
       }
-    } 
+    }
     else if (state == 'F') {
       if (removido != -1) {
         hash_table->rows[removido].state = 'O';
@@ -76,7 +76,6 @@ void hash_table_remove(Hash_Table *hash_table, int value) {
     } else if (state == 'O') {
       if (hash_table->rows[idx].value == value){
       hash_table->rows[idx].state = 'R';
-      hash_table->rows[idx].value = -1;
       return;
       }
     } else if (state =='R'){
